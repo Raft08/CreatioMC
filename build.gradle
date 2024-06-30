@@ -1,0 +1,131 @@
+import com.github.jengelman.gradle.plugins.shadow.transformers.Log4j2PluginsCacheFileTransformer
+
+plugins {
+    id 'java'
+    id 'org.ajoberstar.grgit' version '5.2.1'
+    id 'com.github.johnrengelman.shadow' version '7.1.0'
+}
+
+repositories {
+    maven { url 'https://jitpack.io' }
+}
+
+dependencies {
+    // API
+    implementation project(":api")
+
+    // Minecraft
+    implementation "net.minestom:minestom-snapshots:${minestom_version}"
+
+    // Parsing
+    implementation "net.sf.jopt-simple:jopt-simple:${jopt_version}"
+
+    // Console
+    implementation "org.apache.logging.log4j:log4j-core:${log4j_version}"
+    implementation "org.apache.logging.log4j:log4j-api:${log4j_version}"
+    implementation "org.apache.logging.log4j:log4j-slf4j2-impl:${log4j_version}"
+    implementation "net.minecrell:terminalconsoleappender:${terminal_version}"
+    implementation "org.jline:jline-terminal-jansi:${jline_version}"
+}
+
+tasks.withType(ProcessResources).configureEach {
+    var properties = [
+            version         : project_version,
+            commit          : grgit.head().id,
+            branch          : grgit.branch.current().name,
+            build_time      : new Date().time,
+    ]
+
+    inputs.properties properties
+
+    filesMatching(['build.properties']) {
+        expand properties + [project: project]
+    }
+}
+
+shadowJar {
+    manifest {
+        attributes 'Main-Class': "${main_class}"
+    }
+    transform(Log4j2PluginsCacheFileTransformer)
+    archiveClassifier.set('')
+    archiveBaseName.set("AtlasNetwork")
+}
+
+build {
+    dependsOn shadowJar
+}
+
+jar {
+    enabled = false
+}
+
+tasks.register("prepareRun") {
+    group "run"
+
+    dependsOn build
+    dependsOn ":api:buildTestPlugin"
+
+    doLast {
+        def runDir = file("run")
+        def moduleDir = file("run/plugins")
+
+        def moduleLibs = file("api/build/libs")
+
+        // Create running directory if needed.
+        if (!runDir.isDirectory())
+            runDir.mkdirs()
+
+        if (!moduleDir.isDirectory())
+            moduleDir.mkdirs();
+
+        copy {
+            from moduleLibs
+            into moduleDir
+            include "*${plugin_suffix}.jar"
+        }
+    }
+}
+
+tasks.register("run", JavaExec) {
+    group "run"
+    dependsOn prepareRun
+
+    workingDir = new File(project.rootDir, "run")
+    mainClass.set("${main_class}")
+    classpath = files(shadowJar.archiveFile)
+    standardInput = System.in
+}
+
+allprojects {
+    apply plugin: 'idea'
+    apply plugin: 'eclipse'
+
+    group project.group
+    version project.version
+
+    repositories {
+        mavenCentral()
+        maven { url 'https://repository.atlasworld.fr/repository/maven-public/'}
+    }
+
+    eclipse {
+        classpath {
+            downloadSources = true
+        }
+    }
+
+    idea {
+        module {
+            downloadSources = true
+        }
+    }
+
+    compileJava {
+        options.encoding = "UTF-8"
+    }
+
+    java {
+        toolchain.languageVersion.set(JavaLanguageVersion.of(project.java_version))
+    }
+}

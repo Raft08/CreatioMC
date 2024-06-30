@@ -1,0 +1,28 @@
+plugins {
+    id 'java-library'
+}
+
+dependencies {
+    // Utilities
+    api "fr.atlasworld.common:common:${atlas_common_version}";
+    api "fr.atlasworld.common:concurrent:${atlas_common_version}";
+    api "com.google.inject:guice:${guice_version}"
+
+    // Logging
+    api "org.slf4j:slf4j-api:${slf4j_version}"
+}
+
+jar {
+    archiveBaseName.set("AtlasNetwork-api")
+}
+
+tasks.register("buildTestPlugin", Jar) {
+    group 'build'
+    dependsOn 'testClasses'
+    from sourceSets.test.output
+    archiveFileName.set("TestPlugin-${version}-${plugin_suffix}.jar")
+}
+
+build {
+    dependsOn buildTestPlugin
+}
