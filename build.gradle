@@ -30,7 +30,7 @@ dependencies {
 
 tasks.withType(ProcessResources).configureEach {
     var properties = [
-            version         : project_version,
+            version         : project.version,
             commit          : grgit.head().id,
             branch          : grgit.branch.current().name,
             build_time      : new Date().time,
