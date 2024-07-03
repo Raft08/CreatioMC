@@ -1,0 +1,121 @@
+# Whether you explicitly accept Mojang's terms of service (https://www.minecraft.net/eula)
+# If you do not accept Mojang's terms of service you won't be able to launch your server.
+eula = false
+
+[online]
+    # The server address.
+    # If you do not know what this does it's recommended to let it by default.
+    address = '0.0.0.0'
+
+    # The server port.
+    port = 25565
+
+    # Message to show in the server list.
+    motd = '\u00A73\u00A7lCreatioMC \u00A7rServer!'
+
+    # The authentication method to use for player authentication.
+    # For normal Mojang authentication use 'mojang' (default)
+    # For offline authentication use 'offline'. REMINDER: No support will be provided for crack / offline servers.
+    # If you use bungeecord you also want to use offline authentication.
+    # For Velocity use 'velocity' and for Bungeeguard use 'bungee-guard'
+    authentication = 'mojang'
+
+    # Proxy secret, leave empty if you do not use 'velocity' or 'bungee-guard' as authentication method.
+    proxy-secret = ''
+
+    # When enabled the player list won't be sent in the ping requests.
+    hide-online-players = false
+
+    # Whether to enable the whitelist or not on the server.
+    # If you plan to make a private multiplayer server it's highly recommended to enable the whitelist
+    # This could prevent some griefers or unauthorized players to connect to the server.
+    whitelist = false
+
+    # Limits how many players can join your server.
+    # Operators will always be able to join even when the server is full.
+    max-players = 20
+
+    # Whether the incoming ip addresses from players should be logged or not.
+    log-ips = true
+
+    # Do not change this unless you know what you are doing.
+    network-compression-threshold = 256
+
+    # Sets the amount of packets a player can send before getting kicked.
+    # To disable set the limit to '0' (default)
+    rate-limt = 0
+
+[gameplay]
+    # The default game mode to set the player on when they join your server.
+    # Available game modes are 'survival', 'creative', 'spectator', 'adventure'
+    gamemode = 'survival'
+
+    # When enabled this will force every logging player to use the gamemode set in 'gamemode'.
+    force-gamemode = false
+
+    # Sets the difficulty of the world.
+    # Available difficulties are 'peaceful', 'easy', 'normal', 'hard'
+    difficulty = 'normal'
+
+    # Enable hardcore on the server.
+    # When enabled the server will be set on 'hard' difficulty and
+    # if the players dies they will be set in spectator mode.
+    hardcode = false
+
+    # Whether PvP should be enabled on the server.
+    pvp = true
+
+[world]
+    # Sets the render distance (in chunks).
+    # Higher values will allow players to see further.
+    render-distance = 12
+
+    # Sets the simulation distance (in chunks).
+    # Simulation distance means how far the server will simulate world updates from the players.
+    simulation-distance = 12
+
+    # This sets the world type (or generator) that will be used for world generation.
+    # By default, CreatioMC comes with two generators 'creatio:flat' and 'creatio:test'.
+    # For more world types plugins can be used.
+    # To seting a custom generator can be done like this: 'genplugin:custom_gen'
+    world-type = 'creatio:flat'
+
+    # Sets the seed to be used for world generation.
+    # If none is provided a random seed will be generated for every world.
+    world-seed = ''
+
+    # Sets the world name (or world folder name)
+    world-name = 'world'
+
+    # Sets the max world size.
+    # Range: 1 - 29999984 | Setting a higher value won't do anything.
+    max-world-size = 29999984
+
+    # Whether to allow the spawning of animals in the world.
+    spawn-animals = true
+
+    # Whether to allow the spawning of monsters in the world.
+    spawn-monsters = true
+
+    # Whether to allow the spawning of villagers in the world.
+    spawn-npcs = true
+
+    # Whether structures should be generating in the world.
+    generate-structures = true
+
+[misc]
+    # Enable this to prevent players to be randomly kicked when flying with a custom item or equipement in survival.
+    allow-flight = false
+
+    # Sends the console command results to connected operators on the server.
+    broadcast-console-to-ops = true
+
+    # Whether command blocks should be enabled on the server.
+    # Disabling this will prevent command execution from command blocks.
+    enable-command-blocks = true
+
+    # Sets the operators permissions level.
+    op-permission-level = 4
+
+[internal] # DO NOT TOUCH ANYTHING IN THERE
+    version = 1
