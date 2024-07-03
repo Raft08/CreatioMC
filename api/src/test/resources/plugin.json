@@ -1,0 +1,10 @@
+{
+  "id": "test-plugin",
+  "name": "Test Plugin",
+  "version": "1.0.0",
+  "description": "Test Plugin to test CreatioMC's API",
+  "main": "userend.plugin.TestPlugin",
+  "authors": [
+    "RaftDev"
+  ]
+}
