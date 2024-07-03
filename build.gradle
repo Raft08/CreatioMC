@@ -16,9 +16,11 @@ dependencies {
 
     // Minecraft
     implementation "net.minestom:minestom-snapshots:${minestom_version}"
+    implementation "de.articdive:jnoise-pipeline:${jnoise_version}"
 
     // Parsing
     implementation "net.sf.jopt-simple:jopt-simple:${jopt_version}"
+    implementation "com.moandjiezana.toml:toml4j:${toml4j_version}"
 
     // Console
     implementation "org.apache.logging.log4j:log4j-core:${log4j_version}"
@@ -26,6 +28,7 @@ dependencies {
     implementation "org.apache.logging.log4j:log4j-slf4j2-impl:${log4j_version}"
     implementation "net.minecrell:terminalconsoleappender:${terminal_version}"
     implementation "org.jline:jline-terminal-jansi:${jline_version}"
+
 }
 
 tasks.withType(ProcessResources).configureEach {
