@@ -15,6 +15,7 @@ import joptsimple.OptionSet;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -24,6 +25,21 @@ public class LaunchArgs {
             // Informative
             acceptsAll(asList("version", "v"), "Displays the program version.");
             acceptsAll(asList("help", "?"), "Lists every possible arguments and their usages.");
+
+            // Plugins
+            // TODO: Make the add-plugin argument flag work.
+            /* acceptsAll(asList("add-plugin"), "Add a plugin file to the server.")
+                    .withRequiredArg()
+                    .ofType(File.class)
+                    .defaultsTo(new File[] {})
+                    .describedAs("Plugin Jar File");
+            */
+
+            acceptsAll(asList("plugins"), "Sets the directory to look for plugins.")
+                    .withRequiredArg()
+                    .ofType(File.class)
+                    .defaultsTo(new File("plugins"))
+                    .describedAs("Directory");
         }
     };
     public static LaunchArgs instance;
@@ -99,6 +115,15 @@ public class LaunchArgs {
             throw new IllegalStateException("Arguments not initialized!");
 
         return instance;
+    }
+
+    public File pluginDirectory() {
+        return (File) this.launchOpt.valueOf("plugins");
+    }
+
+    @SuppressWarnings("unchecked")
+    public List<Path> addedPluginFiles() {
+        return ((List<File>) this.launchOpt.valueOf("add-plugin")).stream().map(File::toPath).toList();
     }
 
     private static List<String> asList(String... args) {

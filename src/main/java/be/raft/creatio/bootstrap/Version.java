@@ -20,7 +20,7 @@ import java.util.Properties;
 
 public class Version {
     private static final StackWalker CLASS_WALKER = StackWalker.getInstance(StackWalker.Option.RETAIN_CLASS_REFERENCE);
-    private static final Logger LOGGER = LogUtils.getLoggerFullName();
+    private static final Logger LOGGER = LogUtils.getLogger();
     private static final String FILENAME = "build.properties";
     // Singleton
     private static Version instance;
