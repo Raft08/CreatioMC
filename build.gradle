@@ -98,6 +98,39 @@ tasks.register("run", JavaExec) {
     mainClass.set("${main_class}")
     classpath = files(shadowJar.archiveFile)
     standardInput = System.in
+    args "--debug"
+}
+
+tasks.register("runProduction", JavaExec) {
+    group "run"
+    dependsOn prepareRun
+
+    workingDir = new File(project.rootDir, "run")
+    mainClass.set("${main_class}")
+    classpath = files(shadowJar.archiveFile)
+    standardInput = System.in
+}
+
+tasks.register("runVersion", JavaExec) {
+    group "run"
+    dependsOn prepareRun
+
+    workingDir = new File(project.rootDir, "run")
+    mainClass.set("${main_class}")
+    classpath = files(shadowJar.archiveFile)
+    standardInput = System.in
+    args "--version"
+}
+
+tasks.register("runHelp", JavaExec) {
+    group "run"
+    dependsOn prepareRun
+
+    workingDir = new File(project.rootDir, "run")
+    mainClass.set("${main_class}")
+    classpath = files(shadowJar.archiveFile)
+    standardInput = System.in
+    args "--help"
 }
 
 allprojects {
