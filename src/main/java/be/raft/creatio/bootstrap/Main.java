@@ -12,7 +12,7 @@ public class Main {
     public static void main(String[] args) {
         LaunchArgs.parse(args);
 
-        LOGGER.info("Starting CreatioMC {} (Commit: {} | Branch: {})", Version.getInstance().getVersion(), Version.getInstance().getCommit(), Version.getInstance().getBranch());
+        LOGGER.info("Starting CreatioMC {} (Commit: {} | Branch: {})", Version.getInstance().getVersion(), Version.getInstance().getCommit().substring(0, 7), Version.getInstance().getBranch());
 
         server = new CreatioServer();
 

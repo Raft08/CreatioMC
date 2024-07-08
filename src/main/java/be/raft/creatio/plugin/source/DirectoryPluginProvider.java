@@ -49,6 +49,8 @@ public class DirectoryPluginProvider implements PluginProvider {
 
         @Override
         public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) {
+            LOGGER.debug("Scanning directory '{}' for plugins..", dir);
+
             return FileVisitResult.CONTINUE;
         }
 
@@ -63,6 +65,8 @@ public class DirectoryPluginProvider implements PluginProvider {
                 return FileVisitResult.CONTINUE;
 
             this.foundCandidates.add(file);
+            LOGGER.info("Found plugin '{}'.", file.getFileName());
+
             return FileVisitResult.CONTINUE;
         }
 

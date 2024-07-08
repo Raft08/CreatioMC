@@ -34,7 +34,7 @@ public class ServerPluginClassLoader extends URLClassLoader implements PluginCla
         Preconditions.checkArgument(sourceFile.toFile().isFile(), "Module file could not be found!");
 
         this.info = PluginInfo.loadFromCandidate(sourceFile);
-        Preconditions.checkArgument(this.info == null, "Plugin candidate '{}' is invalid.", sourceFile.getFileName());
+        Preconditions.checkArgument(this.info != null, "Plugin candidate '" + sourceFile.getFileName() + "' is invalid.");
 
         this.logger = LoggerFactory.getLogger(this.info.id());
         this.sourceFile = sourceFile;
@@ -76,7 +76,7 @@ public class ServerPluginClassLoader extends URLClassLoader implements PluginCla
     }
 
     @Override
-    public @NotNull PluginMeta meta() {
+    public @NotNull PluginInfo meta() {
         return this.info;
     }
 
@@ -96,8 +96,6 @@ public class ServerPluginClassLoader extends URLClassLoader implements PluginCla
 
     @Override
     public void allowExternalClasspathUsage(boolean allow) {
-
-
         this.allowExternalClasspathUsage = allow;
     }
 }

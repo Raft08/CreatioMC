@@ -9,6 +9,8 @@
 */
 package be.raft.creatio.bootstrap;
 
+import fr.atlasworld.common.logging.Level;
+import fr.atlasworld.common.logging.LogUtils;
 import joptsimple.OptionException;
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
@@ -23,8 +25,11 @@ public class LaunchArgs {
     private static final OptionParser OPTION_PARSER = new OptionParser() {
         {
             // Informative
-            acceptsAll(asList("version", "v"), "Displays the program version.");
+            acceptsAll(asList("version", "v"), "Displays the server version.");
             acceptsAll(asList("help", "?"), "Lists every possible arguments and their usages.");
+
+            // Dev
+            acceptsAll(asList("debug"), "Launches the server with debug/trace logging enabled.");
 
             // Plugins
             // TODO: Make the add-plugin argument flag work.
@@ -65,6 +70,9 @@ public class LaunchArgs {
 
         if (options.has("version"))
             printVersion();
+
+        if (options.has("debug"))
+            LogUtils.setGlobalLevel(Level.TRACE);
 
         instance = new LaunchArgs(options);
         return get();
@@ -115,6 +123,10 @@ public class LaunchArgs {
             throw new IllegalStateException("Arguments not initialized!");
 
         return instance;
+    }
+
+    public boolean debugMode() {
+        return this.launchOpt.has("debug");
     }
 
     public File pluginDirectory() {

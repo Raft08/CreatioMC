@@ -65,6 +65,7 @@ public final class PluginInfo implements PluginMeta  {
                 if (entry.getName().equals(FILE_NAME)) {
                     try (Reader reader = new InputStreamReader(in, StandardCharsets.UTF_8)) {
                         pluginInfo = GSON.fromJson(reader, PluginInfo.class);
+                        break;
                     }
                 }
 
@@ -83,9 +84,6 @@ public final class PluginInfo implements PluginMeta  {
             LOGGER.error("File '{}' is not a plugin file!", path.getFileName());
             return null;
         }
-
-        if (bukkitPluginFound)
-            LOGGER.debug("File '{}' may be a hybrid plugin, multiple plugin definition file could be found.", path.getFileName());
 
         try {
             pluginInfo.validateInfo();

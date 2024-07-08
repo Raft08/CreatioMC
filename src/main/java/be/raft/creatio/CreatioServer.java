@@ -23,6 +23,7 @@ public class CreatioServer implements Server {
     }
 
     public void initialize() {
+        this.pluginManager.loadPlugins();
     }
 
     public void start() {
