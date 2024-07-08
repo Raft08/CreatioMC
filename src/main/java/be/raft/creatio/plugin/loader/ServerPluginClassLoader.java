@@ -31,7 +31,7 @@ public class ServerPluginClassLoader extends URLClassLoader implements PluginCla
         super(new URL[]{sourceFile.toUri().toURL()});
 
         Preconditions.checkNotNull(sourceFile);
-        Preconditions.checkArgument(sourceFile.toFile().isFile(), "Module file could not be found!");
+        Preconditions.checkArgument(sourceFile.toFile().isFile(), "Plugin file could not be found!");
 
         this.info = PluginInfo.loadFromCandidate(sourceFile);
         Preconditions.checkArgument(this.info != null, "Plugin candidate '" + sourceFile.getFileName() + "' is invalid.");

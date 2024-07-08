@@ -105,7 +105,7 @@ public final class PluginInfo implements PluginMeta  {
         Preconditions.checkArgument(!this.version.isEmpty(), "Plugin version must not be empty!");
         Preconditions.checkArgument(!this.mainClass.isEmpty(), "Plugin main-class must not be empty!");
 
-        Preconditions.checkArgument(Pattern.matches(ID_REGEX, this.id), "Module ID must match regex: [" + ID_REGEX + "]");
+        Preconditions.checkArgument(Pattern.matches(ID_REGEX, this.id), "Plugin id must match regex: [" + ID_REGEX + "]");
     }
 
     @Override

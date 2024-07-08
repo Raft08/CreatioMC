@@ -71,20 +71,20 @@ tasks.register("prepareRun") {
 
     doLast {
         def runDir = file("run")
-        def moduleDir = file("run/plugins")
+        def pluginDir = file("run/plugins")
 
-        def moduleLibs = file("api/build/libs")
+        def pluginLibs = file("api/build/libs")
 
         // Create running directory if needed.
         if (!runDir.isDirectory())
             runDir.mkdirs()
 
-        if (!moduleDir.isDirectory())
-            moduleDir.mkdirs();
+        if (!pluginDir.isDirectory())
+            pluginDir.mkdirs();
 
         copy {
-            from moduleLibs
-            into moduleDir
+            from pluginLibs
+            into pluginDir
             include "*${plugin_suffix}.jar"
         }
     }
